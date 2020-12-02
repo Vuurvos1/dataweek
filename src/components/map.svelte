@@ -1,5 +1,5 @@
 <script>
-  import { geoMercator, geoPath } from 'd3';
+  import { geoMercator, geoPath, select, zoomIdentity, zoom, pointer} from 'd3';
   import {
     handleMouseOver,
     handleMouseOut,
@@ -13,6 +13,8 @@
 
   const height = 620;
   const width = 500;
+  
+  const path = geoPath();
 
   async function getGeo() {
     const url = 'https://cartomap.github.io/nl/wgs84/provincie_2020.geojson';
@@ -21,15 +23,59 @@
     projection = geoMercator().fitSize([width, height], geoData);
     geoGenerator = geoPath().projection(projection);
 
+    console.log(projection)
+
     const dataSetUrl = './data.json';
     dataSet = await (await fetch(dataSetUrl)).json();
+    
 
     return geoData;
   }
 
-  function test(text) {
-    console.log(text)
-  }
+
+    // Zoom functions
+
+    const d3zoom = zoom()
+      .scaleExtent([1, 8])
+      .on("zoom", zoomed);
+
+  const svg = select("svg")
+
+
+      svg.call(d3zoom);
+
+      function zoomed(event) {
+        const { transform } = event;
+      select('g').attr('transform', transform);
+      select('g').attr('stroke-width', 1 / transform.k);
+      }
+
+      function reset() {
+    svg
+      .transition()
+      .duration(750)
+      .call(
+        d3zoom.transform,
+        zoomIdentity,
+        zoomTransform(svg.node()).invert([width / 2, height / 2])
+      );
+      }
+
+      function clicked(event,d) {
+        console.log(event, d)
+      const [[x0, y0], [x1, y1]] = path.bounds(d);
+      event.stopPropagation();
+      select('svg').transition().duration(750).call(
+        d3zoom.transform,
+        zoomIdentity
+        .translate(width / 2, height / 2)
+        .scale(Math.min(8, 0.9 / Math.max((x1 - x0) / width, (y1 - y0) / height)))
+        .translate(-(x0 + x1) / 2, -(y0 + y1) / 2),
+        pointer(event, svg.node())
+    );
+    console.log('end of code reached')
+      }
+
 </script>
 
 <style>
@@ -48,10 +94,11 @@
 {#await getGeo()}
   <h2>Loading Map</h2>
 {:then data}
-  <svg {width} {height}>
+  <svg {width} {height} viewBox={[0, 0, width, height]} on:click={reset}>
     <g class="map">
       {#each data.features as path}
-        <path d={geoGenerator(path)} />
+        <path d={geoGenerator(path)}
+              on:click={() => clicked(event, path)}/>
       {/each}
     </g>
 
