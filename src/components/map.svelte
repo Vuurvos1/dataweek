@@ -24,8 +24,15 @@
 </script>
 
 <style>
+  .map path {
+    stroke: #eef6fc;
+    stroke-width: 2;
+    fill: #fafafd;
+  }
   .dot {
-    fill: hotpink;
+    fill: #9d5feb;
+    stroke: white;
+    stroke-width: 1;
   }
 </style>
 
@@ -46,7 +53,7 @@
             class="dot"
             cx={projection([Number(dot.lng), Number(dot.lat)])[0]}
             cy={projection([Number(dot.lng), Number(dot.lat)])[1]}
-            r={10} />
+            r={5} />
         {/each}
       {/each}
     </g>
