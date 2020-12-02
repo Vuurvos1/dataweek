@@ -79,6 +79,19 @@
     console.log('end of code reached')
       }
 
+        // needs array
+  function coordToLine(arr) {
+    let line = '';
+
+    for (let i = 0; i < arr.length; i++) {
+      line += `${i <= 0 ? 'M' : 'L'}
+            ${projection([Number(arr[i].lng), Number(arr[i].lat)])[0]}, 
+            ${projection([Number(arr[i].lng), Number(arr[i].lat)])[1]} `;
+    }
+
+    return line;
+  }
+
 </script>
 
 <style>
@@ -96,6 +109,11 @@
     display: flex;
     justify-content: center;
   }
+  .lines path {
+    stroke: hotpink;
+    stroke-width: 2;
+    fill: transparent;
+  }
 </style>
 
 {#await getGeo()}
@@ -104,11 +122,15 @@
 <div>
   <svg {width} {height} viewBox={[0, 0, width, height]} on:click={reset}>
     <g class="map">
-      {#each data.features as path}
-        <path d={geoGenerator(path)}
-              on:click={() => clicked(event, path)}/>
-      {/each}
-
+        {#each data.features as path}
+          <path d={geoGenerator(path)}
+                on:click={() => clicked(event, path)}/>
+        {/each}
+        <g class="lines">
+          {#each dataSet as data}
+          <path d={coordToLine(data)} />
+        {/each}
+        </g>
       {#each dataSet as points}
         {#each points as dot}
           <circle
@@ -124,7 +146,6 @@
             />
         {/each}
       {/each}
-    </g>
   </svg>
 </div>
 {:catch error}
