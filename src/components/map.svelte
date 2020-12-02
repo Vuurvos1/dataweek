@@ -4,7 +4,7 @@
     handleMouseOver,
     handleMouseOut,
     mouseMove,
-  } from '../../scripts/tooltip'
+  } from '../../scripts/tooltip';
 
   let projection;
   let geoGenerator;
@@ -27,8 +27,17 @@
     return geoData;
   }
 
-  function test(text) {
-    console.log(text)
+  // needs array
+  function coordToLine(arr) {
+    let line = '';
+
+    for (let i = 0; i < arr.length; i++) {
+      line += `${i <= 0 ? 'M' : 'L'}
+            ${projection([Number(arr[i].lng), Number(arr[i].lat)])[0]}, 
+            ${projection([Number(arr[i].lng), Number(arr[i].lat)])[1]} `;
+    }
+
+    return line;
   }
 </script>
 
@@ -38,6 +47,13 @@
     stroke-width: 2;
     fill: #fafafd;
   }
+
+  .lines path {
+    stroke: hotpink;
+    stroke-width: 2;
+    fill: transparent;
+  }
+
   .dot {
     fill: #9d5feb;
     stroke: white;
@@ -55,6 +71,12 @@
       {/each}
     </g>
 
+    <g class="lines">
+      {#each dataSet as data}
+        <path d={coordToLine(data)} />
+      {/each}
+    </g>
+
     <g class="dots">
       {#each dataSet as points}
         {#each points as dot}
@@ -62,13 +84,12 @@
             class="dot"
             cx={projection([Number(dot.lng), Number(dot.lat)])[0]}
             cy={projection([Number(dot.lng), Number(dot.lat)])[1]}
-            r='5px'
+            r="5px"
             on:mouseover={handleMouseOver(`
             Station: ${dot.Station} 
             Personen in het voertuig: ${dot.alreadyIn}`)}
             on:mouseout={handleMouseOut}
-            on:mousemove={mouseMove}
-            />
+            on:mousemove={mouseMove} />
         {/each}
       {/each}
     </g>
