@@ -1,48 +1,56 @@
 <script>
   import { geoMercator, geoPath } from 'd3';
-  import { feature } from 'topojson';
 
-  //   import {  }
+  let projection;
+  let geoGenerator;
 
-  export let data;
+  let dataSet;
 
   const height = 620;
   const width = 500;
 
-  const projection = geoMercator().fitSize([width, height], data);
-  //   const path = geoPath().projection(projection);
+  async function getGeo() {
+    const url = 'https://cartomap.github.io/nl/wgs84/provincie_2020.geojson';
+    const geoData = await (await fetch(url)).json();
 
-  //   const json = data;
+    projection = geoMercator().fitSize([width, height], geoData);
+    geoGenerator = geoPath().projection(projection);
 
-  //   const json = map.json();
-  console.log(data);
+    const dataSetUrl = './data.json';
+    dataSet = await (await fetch(dataSetUrl)).json();
 
-  let geoData = feature(data, data.features[0]);
-  console.log(geoData);
-
-  //   var projection = geoEquirectangular();
-
-  let geoGenerator = geoPath().projection(projection);
-
-  console.log(data.features[0]);
-  console.log(geoGenerator(data.features[0]));
-
-  //   const path = geoGenerator(data);
-
-  //   const topoData = feature(data, data.features[0]);
-  //   console.log(topoData);
-  //   console.log(geoData);
-  //   const land = {
-  //     ...topoData,
-  //     features: topoData.features,
-  //   };
-  //   console.log(land);
-  //   let mapData = land.features;
-  //   console.log(mapData);
+    return geoData;
+  }
 </script>
 
-<svg {width} {height}>
-  {#each data.features as path}
-    <path d={geoGenerator(path)} />
-  {/each}
-</svg>
+<style>
+  .dot {
+    fill: hotpink;
+  }
+</style>
+
+{#await getGeo()}
+  <h2>Loading Map</h2>
+{:then data}
+  <svg {width} {height}>
+    <g class="map">
+      {#each data.features as path}
+        <path d={geoGenerator(path)} />
+      {/each}
+    </g>
+
+    <g class="dots">
+      {#each dataSet as points}
+        {#each points as dot}
+          <circle
+            class="dot"
+            cx={projection([Number(dot.lng), Number(dot.lat)])[0]}
+            cy={projection([Number(dot.lng), Number(dot.lat)])[1]}
+            r={10} />
+        {/each}
+      {/each}
+    </g>
+  </svg>
+{:catch error}
+  <p style="color: red">{error.message}</p>
+{/await}
