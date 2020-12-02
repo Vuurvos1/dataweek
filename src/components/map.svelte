@@ -1,5 +1,10 @@
 <script>
   import { geoMercator, geoPath } from 'd3';
+  import {
+    handleMouseOver,
+    handleMouseOut,
+    mouseMove,
+  } from '../../scripts/tooltip'
 
   let projection;
   let geoGenerator;
@@ -20,6 +25,10 @@
     dataSet = await (await fetch(dataSetUrl)).json();
 
     return geoData;
+  }
+
+  function test(text) {
+    console.log(text)
   }
 </script>
 
@@ -53,7 +62,13 @@
             class="dot"
             cx={projection([Number(dot.lng), Number(dot.lat)])[0]}
             cy={projection([Number(dot.lng), Number(dot.lat)])[1]}
-            r={5} />
+            r='5px'
+            on:mouseover={handleMouseOver(`
+            Station: ${dot.Station} 
+            Personen in het voertuig: ${dot.alreadyIn}`)}
+            on:mouseout={handleMouseOut}
+            on:mousemove={mouseMove}
+            />
         {/each}
       {/each}
     </g>
