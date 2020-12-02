@@ -4,7 +4,13 @@
 
 <style>
   :global(body) {
-    background-color: #eaedf4;
+    --bgCol: #eaedf4;
+
+    background-color: var(--bgCol);
+  }
+
+  :global(body.night) {
+    --bgCol: hotpink;
   }
 </style>
 
