@@ -21,14 +21,11 @@
     const geoData = await (await fetch(url)).json();
 
     projection = geoMercator().fitSize([width, height], geoData);
-    geoGenerator = geoPath().projection(projection);
-
-    console.log(projection)
+    geoGenerator = path.projection(projection);
 
     const dataSetUrl = './data.json';
     dataSet = await (await fetch(dataSetUrl)).json();
     
-
     return geoData;
   }
 
@@ -43,6 +40,8 @@
 
 
       svg.call(d3zoom);
+      select('svg').call(d3zoom)
+
 
       function zoomed(event) {
         const { transform } = event;
@@ -51,13 +50,13 @@
       }
 
       function reset() {
-    svg
+    select('svg')
       .transition()
       .duration(750)
       .call(
         d3zoom.transform,
         zoomIdentity,
-        zoomTransform(svg.node()).invert([width / 2, height / 2])
+        zoomTransform(select('svg').node()).invert([width / 2, height / 2])
       );
       }
 
@@ -100,15 +99,13 @@
         <path d={geoGenerator(path)}
               on:click={() => clicked(event, path)}/>
       {/each}
-    </g>
 
-    <g class="dots">
       {#each dataSet as points}
         {#each points as dot}
           <circle
             class="dot"
-            cx={projection([Number(dot.lng), Number(dot.lat)])[0]}
-            cy={projection([Number(dot.lng), Number(dot.lat)])[1]}
+            cx={projection([dot.lng, dot.lat])[0]}
+            cy={projection([dot.lng, dot.lat])[1]}
             r='5px'
             on:mouseover={handleMouseOver(`
             Station: ${dot.Station} 
