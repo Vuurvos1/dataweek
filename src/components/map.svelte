@@ -1,5 +1,14 @@
 <script>
-  import { geoMercator, geoPath } from 'd3';
+  import {
+    geoMercator,
+    geoPath,
+    select,
+    zoomIdentity,
+    zoom,
+    pointer,
+    zoomTransform,
+    selectAll,
+  } from 'd3';
   import {
     handleMouseOver,
     handleMouseOut,
@@ -18,12 +27,14 @@
   const height = 620;
   const width = 500;
 
+  const path = geoPath();
+
   async function getGeo() {
     const url = 'https://cartomap.github.io/nl/wgs84/provincie_2020.geojson';
     const geoData = await (await fetch(url)).json();
 
     projection = geoMercator().fitSize([width, height], geoData);
-    geoGenerator = geoPath().projection(projection);
+    geoGenerator = path.projection(projection);
 
     const dataSetUrl = './dataDay.json';
     dataSet = await (await fetch(dataSetUrl)).json();
@@ -32,6 +43,56 @@
     dataNight = await (await fetch(dataNightUrl)).json();
 
     return geoData;
+  }
+
+  // Zoom functions
+
+  const d3zoom = zoom().scaleExtent([1, 8]).on('zoom', zoomed);
+
+  const svg = select('svg');
+
+  svg.call(d3zoom);
+  select('svg').call(d3zoom);
+
+  function zoomed(event) {
+    const { transform } = event;
+    select('g').attr('transform', transform);
+    select('g').attr('stroke-width', 1 / transform.k);
+  }
+
+  function reset() {
+    select('svg')
+      .transition()
+      .duration(750)
+      .call(
+        d3zoom.transform,
+        zoomIdentity,
+        zoomTransform(select('svg').node()).invert([width / 2, height / 2])
+      );
+    console.log('reset');
+  }
+
+  function clicked(event, d) {
+    // selectAll('.dot')
+    //       .attr('r', '2px')
+
+    console.log(event, d);
+    const [[x0, y0], [x1, y1]] = path.bounds(d);
+    event.stopPropagation();
+    select('svg')
+      .transition()
+      .duration(750)
+      .call(
+        d3zoom.transform,
+        zoomIdentity
+          .translate(width / 2, height / 2)
+          .scale(
+            Math.min(8, 0.9 / Math.max((x1 - x0) / width, (y1 - y0) / height))
+          )
+          .translate(-(x0 + x1) / 2, -(y0 + y1) / 2),
+        pointer(event, svg.node())
+      );
+    console.log('end of code reached');
   }
 
   // needs array
@@ -54,55 +115,56 @@
     stroke-width: 2;
     fill: #fafafd;
   }
-
-  .lines path {
-    stroke: hotpink;
-    stroke-width: 2;
-    fill: transparent;
-  }
-
   .dot {
     fill: #9d5feb;
     stroke: white;
     stroke-width: 1;
+  }
+  div {
+    display: flex;
+    justify-content: center;
+  }
+  .lines path {
+    stroke: hotpink;
+    stroke-width: 2;
+    fill: transparent;
   }
 </style>
 
 {#await getGeo()}
   <h2>Loading Map</h2>
 {:then data}
-  <svg {width} {height}>
-    <g class="map">
-      {#each data.features as path}
-        <path d={geoGenerator(path)} />
-      {/each}
-    </g>
+  <div>
+    <svg {width} {height} viewBox={[0, 0, width, height]} on:click={reset}>
+      <g class="map">
+        {#each data.features as path}
+          <path d={geoGenerator(path)} on:click={() => clicked(event, path)} />
+        {/each}
 
-    <g class="lines">
-      {#each day ? dataSet : dataNight as data}
-        <path d={coordToLine(data)} />
-      {/each}
-    </g>
+        <g class="lines">
+          {#each day ? dataSet : dataNight as data}
+            <path d={coordToLine(data)} />
+          {/each}
+        </g>
 
-    <g class="dots">
-      {#each day ? dataSet : dataNight as points}
-        {#each points as dot}
-          <circle
-            class="dot"
-            cx={projection([Number(dot.lng), Number(dot.lat)])[0]}
-            cy={projection([Number(dot.lng), Number(dot.lat)])[1]}
-            r="5px"
-            on:mouseover={handleMouseOver(`
+        {#each day ? dataSet : dataNight as points}
+          {#each points as dot}
+            <circle
+              class="dot"
+              cx={projection([dot.lng, dot.lat])[0]}
+              cy={projection([dot.lng, dot.lat])[1]}
+              r="5px"
+              on:mouseover={handleMouseOver(`
           Station: ${dot.Station} 
           Personen in het voertuig: ${dot.alreadyIn}`)}
-            on:mouseout={handleMouseOut}
-            on:mousemove={mouseMove} />
+              on:mouseout={handleMouseOut}
+              on:mousemove={mouseMove} />
+          {/each}
         {/each}
-      {/each}
-    </g>
-  </svg>
+      </g></svg>
 
-  <input type="checkbox" name="dayNight" id="dayNight" bind:checked={day} />
+    <input type="checkbox" name="dayNight" id="dayNight" bind:checked={day} />
+  </div>
 {:catch error}
   <p style="color: red">{error.message}</p>
 {/await}
