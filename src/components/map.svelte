@@ -1,5 +1,5 @@
 <script>
-  import { geoMercator, geoPath, select, zoomIdentity, zoom, pointer} from 'd3';
+  import { geoMercator, geoPath, select, zoomIdentity, zoom, pointer,   zoomTransform, selectAll} from 'd3';
   import {
     handleMouseOver,
     handleMouseOut,
@@ -57,10 +57,14 @@
         d3zoom.transform,
         zoomIdentity,
         zoomTransform(select('svg').node()).invert([width / 2, height / 2])
-      );
+      )
+      console.log('reset')
       }
 
       function clicked(event,d) {
+        // selectAll('.dot')
+        //       .attr('r', '2px')
+
         console.log(event, d)
       const [[x0, y0], [x1, y1]] = path.bounds(d);
       event.stopPropagation();
@@ -88,11 +92,16 @@
     stroke: white;
     stroke-width: 1;
   }
+  div {
+    display: flex;
+    justify-content: center;
+  }
 </style>
 
 {#await getGeo()}
   <h2>Loading Map</h2>
 {:then data}
+<div>
   <svg {width} {height} viewBox={[0, 0, width, height]} on:click={reset}>
     <g class="map">
       {#each data.features as path}
@@ -117,6 +126,7 @@
       {/each}
     </g>
   </svg>
+</div>
 {:catch error}
   <p style="color: red">{error.message}</p>
 {/await}
