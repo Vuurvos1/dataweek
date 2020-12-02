@@ -10,6 +10,10 @@
   let geoGenerator;
 
   let dataSet;
+  let dataNight;
+
+  let day = false;
+  $: document.body.classList.toggle('night', day);
 
   const height = 620;
   const width = 500;
@@ -21,8 +25,11 @@
     projection = geoMercator().fitSize([width, height], geoData);
     geoGenerator = geoPath().projection(projection);
 
-    const dataSetUrl = './data.json';
+    const dataSetUrl = './dataDay.json';
     dataSet = await (await fetch(dataSetUrl)).json();
+
+    const dataNightUrl = './dataNight.json';
+    dataNight = await (await fetch(dataNightUrl)).json();
 
     return geoData;
   }
@@ -72,13 +79,13 @@
     </g>
 
     <g class="lines">
-      {#each dataSet as data}
+      {#each day ? dataSet : dataNight as data}
         <path d={coordToLine(data)} />
       {/each}
     </g>
 
     <g class="dots">
-      {#each dataSet as points}
+      {#each day ? dataSet : dataNight as points}
         {#each points as dot}
           <circle
             class="dot"
@@ -86,14 +93,16 @@
             cy={projection([Number(dot.lng), Number(dot.lat)])[1]}
             r="5px"
             on:mouseover={handleMouseOver(`
-            Station: ${dot.Station} 
-            Personen in het voertuig: ${dot.alreadyIn}`)}
+          Station: ${dot.Station} 
+          Personen in het voertuig: ${dot.alreadyIn}`)}
             on:mouseout={handleMouseOut}
             on:mousemove={mouseMove} />
         {/each}
       {/each}
     </g>
   </svg>
+
+  <input type="checkbox" name="dayNight" id="dayNight" bind:checked={day} />
 {:catch error}
   <p style="color: red">{error.message}</p>
 {/await}

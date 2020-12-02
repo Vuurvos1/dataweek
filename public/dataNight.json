@@ -1,0 +1,415 @@
+[
+  [
+    {
+      "Station": "Breda Centraal",
+      "lat": "51.589320",
+      "lng": "4.774470",
+      "vertrek": "09:26",
+      "aankomst": null,
+      "no-masks": 1,
+      "alreadyIn": 1,
+      "in": 1,
+      "uit": 1
+    },
+    {
+      "Station": "Rotterdam Centraal",
+      "lat": "51.922910",
+      "lng": "4.470590",
+      "vertrek": "09:56",
+      "aankomst": "09:58",
+      "no-masks": 1,
+      "alreadyIn": 1,
+      "in": 1,
+      "uit": 1
+    },
+    {
+      "Station": "Schiphol station",
+      "lat": "52.309367",
+      "lng": "4.7600533",
+      "vertrek": "10:22",
+      "aankomst": "10:24",
+      "no-masks": 0,
+      "alreadyIn": 1,
+      "in": 1,
+      "uit": 1
+    },
+    {
+      "Station": "Amsterdam Centraal",
+      "lat": "52.377727",
+      "lng": "4.8991132",
+      "vertrek": null,
+      "aankomst": "10:38",
+      "no-masks": 0,
+      "alreadyIn": 22,
+      "in": 0,
+      "uit": 22
+    }
+  ],
+  [
+    {
+      "Station": "De hoven",
+      "lat": "52.3379097",
+      "lng": "5.196512",
+      "vertrek": "09:48",
+      "aankomst": "09:48",
+      "no-masks": 0,
+      "alreadyIn": 10,
+      "in": 1,
+      "uit": 0
+    },
+    {
+      "Station": "Almere haven",
+      "lat": "52.335256",
+      "lng": "5.2166912",
+      "vertrek": "09:51",
+      "aankomst": "09:51",
+      "no-masks": 0,
+      "alreadyIn": 11,
+      "in": 0,
+      "uit": 0
+    },
+    {
+      "Station": "De Werven",
+      "lat": "52.337495",
+      "lng": "5.2226053",
+      "vertrek": "09:53",
+      "aankomst": "09:53",
+      "no-masks": 0,
+      "alreadyIn": 11,
+      "in": 0,
+      "uit": 0
+    },
+    {
+      "Station": "De Meenten",
+      "lat": "52.335505",
+      "lng": "5.2329703",
+      "vertrek": "09:54",
+      "aankomst": "09:54",
+      "no-masks": 0,
+      "alreadyIn": 12,
+      "in": 1,
+      "uit": 0
+    },
+    {
+      "Station": "De grienden",
+      "lat": "52.338494",
+      "lng": "5.2372593",
+      "vertrek": "09:55",
+      "aankomst": "09:55",
+      "no-masks": 0,
+      "alreadyIn": 10,
+      "in": 0,
+      "uit": 2
+    },
+    {
+      "Station": "De Marken",
+      "lat": "52.344374",
+      "lng": "5.2253683",
+      "vertrek": "09:56",
+      "aankomst": "09:56",
+      "no-masks": 0,
+      "alreadyIn": 10,
+      "in": 0,
+      "uit": 0
+    },
+    {
+      "Station": "De Steiger",
+      "lat": "52.349185",
+      "lng": "5.2205362",
+      "vertrek": "09:58",
+      "aankomst": "09:58",
+      "no-masks": 0,
+      "alreadyIn": 14,
+      "in": 4,
+      "uit": 0
+    },
+    {
+      "Station": "Busstation 't oor",
+      "lat": "52.3542381",
+      "lng": "5.2092467",
+      "vertrek": "10:00",
+      "aankomst": "10:00",
+      "no-masks": 0,
+      "alreadyIn": 20,
+      "in": 6,
+      "uit": 0
+    },
+    {
+      "Station": "P + R terrein",
+      "lat": "52.328758",
+      "lng": "5.0476563",
+      "vertrek": "10:16",
+      "aankomst": "10:16",
+      "no-masks": 0,
+      "alreadyIn": 20,
+      "in": 0,
+      "uit": 0
+    },
+    {
+      "Station": "Muiden Maxisweg",
+      "lat": "52.3323853",
+      "lng": "5.0393224",
+      "vertrek": "10:17",
+      "aankomst": "10:17",
+      "no-masks": 0,
+      "alreadyIn": 20,
+      "in": 0,
+      "uit": 0
+    },
+    {
+      "Station": "Provincialeweg",
+      "lat": "52.327656",
+      "lng": "4.9697113",
+      "vertrek": "10:20",
+      "aankomst": "10:20",
+      "no-masks": 0,
+      "alreadyIn": 16,
+      "in": 0,
+      "uit": 4
+    },
+    {
+      "Station": "Diemerknoop",
+      "lat": "52.335382",
+      "lng": "5.0005233",
+      "vertrek": "10:21",
+      "aankomst": "10:21",
+      "no-masks": 0,
+      "alreadyIn": 17,
+      "in": 1,
+      "uit": 0
+    },
+    {
+      "Station": "StammerKamp",
+      "lat": "52.3340318",
+      "lng": "4.9440576",
+      "vertrek": "10:22",
+      "aankomst": "10:22",
+      "no-masks": 0,
+      "alreadyIn": 19,
+      "in": 2,
+      "uit": 0
+    },
+    {
+      "Station": "Eekholt",
+      "lat": "52.327236",
+      "lng": "4.9650943",
+      "vertrek": "10:23",
+      "aankomst": "10:23",
+      "no-masks": 0,
+      "alreadyIn": 18,
+      "in": 0,
+      "uit": 1
+    },
+    {
+      "Station": "Dennenrode",
+      "lat": "52.321911",
+      "lng": "4.9490543",
+      "vertrek": "10:25",
+      "aankomst": "10:25",
+      "no-masks": 0,
+      "alreadyIn": 10,
+      "in": 0,
+      "uit": 8
+    },
+    {
+      "Station": "Floppingdreef",
+      "lat": "52.312674",
+      "lng": "4.9473853",
+      "vertrek": "10:30",
+      "aankomst": "10:30",
+      "no-masks": 0,
+      "alreadyIn": 5,
+      "in": 1,
+      "uit": 5
+    },
+    {
+      "Station": "Station Bijlmer",
+      "lat": "52.3120458",
+      "lng": "4.9450623",
+      "vertrek": null,
+      "aankomst": "10:32",
+      "no-masks": 0,
+      "alreadyIn": 0,
+      "in": 0,
+      "uit": 5
+    },
+    {
+      "Station": "Strandvliet",
+      "lat": "52.3161209",
+      "lng": "4.9341843",
+      "vertrek": "10:40",
+      "aankomst": "10:40",
+      "no-masks": 0,
+      "alreadyIn": 50,
+      "in": 5,
+      "uit": 3
+    },
+    {
+      "Station": "Duivendrecht",
+      "lat": "52.323142",
+      "lng": "4.9346383",
+      "vertrek": "10:42",
+      "aankomst": "10:42",
+      "no-masks": 0,
+      "alreadyIn": 55,
+      "in": 5,
+      "uit": 0
+    },
+    {
+      "Station": "Van der Madeweg",
+      "lat": "52.3293872",
+      "lng": "4.928513",
+      "vertrek": "10:45",
+      "aankomst": "10:45",
+      "no-masks": 0,
+      "alreadyIn": 50,
+      "in": 0,
+      "uit": 5
+    },
+    {
+      "Station": "Sparklerweg",
+      "lat": "52.3399748",
+      "lng": "4.9186681",
+      "vertrek": "10:48",
+      "aankomst": "10:48",
+      "no-masks": 0,
+      "alreadyIn": 40,
+      "in": 0,
+      "uit": 10
+    },
+    {
+      "Station": "Amstelstation",
+      "lat": "52.3466447",
+      "lng": "4.9161003",
+      "vertrek": "10:50",
+      "aankomst": "10:50",
+      "no-masks": 0,
+      "alreadyIn": 60,
+      "in": 20,
+      "uit": 0
+    },
+    {
+      "Station": "Wibautstraat",
+      "lat": "52.3544476",
+      "lng": "4.909887",
+      "vertrek": "10:52",
+      "aankomst": "10:52",
+      "no-masks": 0,
+      "alreadyIn": 40,
+      "in": 0,
+      "uit": 20
+    },
+    {
+      "Station": "Weesperlein",
+      "lat": "52.361213",
+      "lng": "4.9057638",
+      "vertrek": "10:54",
+      "aankomst": "10:54",
+      "no-masks": 0,
+      "alreadyIn": 20,
+      "in": 0,
+      "uit": 20
+    }
+  ],
+  [
+    {
+      "Station": "Almere Parkwijk",
+      "lat": "52.3768191",
+      "lng": "5.2427123",
+      "vertrek": "10:31",
+      "aankomst": "10:31",
+      "no-masks": 0,
+      "alreadyIn": 17,
+      "in": 0,
+      "uit": 0
+    },
+    {
+      "Station": "Almere Centrum",
+      "lat": "52.3752478",
+      "lng": "5.2171329",
+      "vertrek": "10:34",
+      "aankomst": "10:34",
+      "no-masks": 0,
+      "alreadyIn": 32,
+      "in": 15,
+      "uit": 0
+    },
+    {
+      "Station": "Almere Muziekwijk",
+      "lat": "52.3677008",
+      "lng": "5.1886327",
+      "vertrek": "10:39",
+      "aankomst": "10:39",
+      "no-masks": 0,
+      "alreadyIn": 28,
+      "in": 0,
+      "uit": 4
+    },
+    {
+      "Station": "Almere Poort",
+      "lat": "52.3431174",
+      "lng": "5.1514545",
+      "vertrek": "10:43",
+      "aankomst": "10:43",
+      "no-masks": 0,
+      "alreadyIn": 27,
+      "in": 0,
+      "uit": 1
+    },
+    {
+      "Station": "Weesp",
+      "lat": "52.3117711",
+      "lng": "5.0417855",
+      "vertrek": "10:50",
+      "aankomst": "10:50",
+      "no-masks": 0,
+      "alreadyIn": 31,
+      "in": 4,
+      "uit": 0
+    },
+    {
+      "Station": "Diemen",
+      "lat": "52.3455532",
+      "lng": "4.9660272",
+      "vertrek": "10:56",
+      "aankomst": "10:56",
+      "no-masks": 0,
+      "alreadyIn": 25,
+      "in": 0,
+      "uit": 6
+    },
+    {
+      "Station": "Amsterdam Science Park",
+      "lat": "52.3529992",
+      "lng": "4.9461769",
+      "vertrek": "10:58",
+      "aankomst": "10:58",
+      "no-masks": 0,
+      "alreadyIn": 23,
+      "in": 0,
+      "uit": 2
+    },
+    {
+      "Station": "Amsterdam Muiderpoort",
+      "lat": "52.3606501",
+      "lng": "4.9281433",
+      "vertrek": "11:01",
+      "aankomst": "11:01",
+      "no-masks": 0,
+      "alreadyIn": 26,
+      "in": 3,
+      "uit": 0
+    },
+    {
+      "Station": "Amsterdam Centraal",
+      "lat": "52.377727",
+      "lng": "4.8991132",
+      "vertrek": "11:07",
+      "aankomst": "11:07",
+      "no-masks": 0,
+      "alreadyIn": 26,
+      "in": 0,
+      "uit": 0
+    }
+  ]
+]
