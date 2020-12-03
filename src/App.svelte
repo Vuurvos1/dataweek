@@ -11,7 +11,7 @@
     --purple2: #854ce3;
     --purpleOpac: rgba(133, 76, 227, 0.3);
 
-    --textCol: #000;
+    --textCol: #0f0f0f;
 
     --butCol: var(--purple);
 

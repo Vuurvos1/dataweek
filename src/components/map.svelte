@@ -7,13 +7,7 @@
     zoom,
     pointer,
     zoomTransform,
-    selectAll,
   } from 'd3';
-  import {
-    handleMouseOver,
-    handleMouseOut,
-    mouseMove,
-  } from '../../scripts/tooltip';
 
   let projection;
   let geoGenerator;
@@ -27,7 +21,7 @@
   let tooltip = false;
   let mousePos = { x: 0, y: 0 };
 
-  let tempCircle;
+  let tooltipDot = {};
 
   const height = 700;
   const width = 700;
@@ -112,6 +106,73 @@
 
     return line;
   }
+
+  function stationId(data) {
+    return data[0].Station.split(' ')[0];
+  }
+
+  function lineGrad(arr) {
+    // get total dist of line
+    let colArr = [];
+    let col = '';
+    let offset = 0;
+    let totalLenght = 0;
+    let tempLength = 0;
+    let prevPoint = { lat: 0, lng: 0 };
+
+    for (const [c, i] of arr.entries()) {
+      if (c <= 0) {
+        prevPoint.lat = Number(i.lat);
+        prevPoint.lng = Number(i.lng);
+      } else {
+        totalLenght += Math.pow(
+          Math.pow(prevPoint.lat - Number(i.lat), 2) +
+            Math.pow(prevPoint.lng - Number(i.lng), 2),
+          0.5
+        );
+
+        prevPoint.lat = i.lat;
+        prevPoint.lng = i.lng;
+      }
+    }
+
+    for (const [c, i] of arr.entries()) {
+      if (c <= 0) {
+        prevPoint.lat = Number(i.lat);
+        prevPoint.lng = Number(i.lng);
+      } else {
+        tempLength += Math.pow(
+          Math.pow(prevPoint.lat - Number(i.lat), 2) +
+            Math.pow(prevPoint.lng - Number(i.lng), 2),
+          0.5
+        );
+
+        offset = Math.round((tempLength / totalLenght) * 100);
+
+        prevPoint.lat = i.lat;
+        prevPoint.lng = i.lng;
+      }
+
+      if (i.alreadyIn < 35) {
+        col = '#7268D6';
+      } else if (i.alreadyIn < 50 && i.alreadyIn > 35) {
+        col = '#FFB67A';
+      } else if (i.alreadyIn > 49) {
+        col = '#F74559';
+      }
+
+      colArr.push({
+        col: col,
+        offset: offset,
+      });
+    }
+
+    return colArr;
+  }
+
+  function renderTooltip(info) {
+    tooltipDot = info;
+  }
 </script>
 
 <style>
@@ -154,18 +215,12 @@
     cursor: pointer;
   }
 
-  #dayNight {
-    display: none;
+  .map circle {
+    cursor: pointer;
   }
 
-  .center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 50rem;
-    width: 90rem;
-    border-radius: 2px;
+  #dayNight {
+    display: none;
   }
 
   .test {
@@ -176,7 +231,7 @@
   .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
     gap: 0px 0px;
     grid-template-areas:
       'description Map'
@@ -184,14 +239,24 @@
       'description Map';
 
     background-color: var(--bgFrameCol);
-    border-radius: 0.4em;
+    border-radius: 0.4rem;
+
+    max-width: 76rem;
+    width: 90vw;
+    height: 48rem;
+
+    padding: 0.6rem;
+    margin: calc((100vh - 48rem) / 2) auto;
   }
 
   .tooltip {
     z-index: 10;
+    pointer-events: none;
     position: absolute;
     top: 0;
     left: 0;
+
+    border-radius: 0 0.4rem 0.4rem 0.4rem;
   }
 
   .description {
@@ -210,79 +275,79 @@
   <div
     class="tooltip"
     style={`transform: translate(${mousePos.x}px, ${mousePos.y}px)`}>
-    <p>this is some text pikkenbaas</p>
+    <p>
+      {`Op dit station zaten er ${tooltipDot.alreadyIn} mensen in de trein`}
+    </p>
   </div>
 {/if}
 
-<div class="center">
-  <div class="grid-container">
-    <div class="description">
-      <h1>Timetravel</h1>
-      <p>
-        Meerdere weergavens van onze ervaring tijds het reizen. U kunt andere
-        inzichten opdoen door op de onderstaande button te klikken.
-      </p>
-      <div class="test">
-        <h2>Get Started</h2>
-        <label class="dayNightButton" for="dayNight">Schakel tussen dag & nacht</label>
-        <input
-          type="checkbox"
-          name="dayNight"
-          id="dayNight"
-          bind:checked={day} />
-      </div>
+<div class="grid-container">
+  <div class="description">
+    <h1>Timetravel</h1>
+    <p>
+      Meerdere weergavens van onze ervaring tijds het reizen. U kunt andere
+      inzichten opdoen door op de onderstaande button te klikken.
+    </p>
+    <div class="test">
+      <h2>Get Started</h2>
+      <label class="dayNightButton" for="dayNight">Schakel tussen dag & nacht</label>
+      <input type="checkbox" name="dayNight" id="dayNight" bind:checked={day} />
     </div>
-    <div class="Map">
-      {#await getGeo()}
-        <h2>Loading Map</h2>
-      {:then data}
-        <div class="mapContainer">
-          <svg
-            {width}
-            {height}
-            viewBox={[0, 0, width, height]}
-            on:click={reset}>
-            <g class="map">
-              {#each data.features as path}
+  </div>
+  <div class="Map">
+    {#await getGeo()}
+      <h2>Loading Map</h2>
+    {:then data}
+      <div class="mapContainer">
+        <svg {width} {height} viewBox={[0, 0, width, height]} on:click={reset}>
+          <g class="map">
+            {#each data.features as path}
+              <path
+                d={geoGenerator(path)}
+                on:click={() => clicked(event, path)} />
+            {/each}
+
+            <g class="lines">
+              {#each day ? dataSet : dataNight as data}
                 <path
-                  d={geoGenerator(path)}
-                  on:click={() => clicked(event, path)} />
-              {/each}
+                  d={coordToLine(data)}
+                  style={`stroke: url(#${stationId(data)}`} />
 
-              <g class="lines">
-                {#each day ? dataSet : dataNight as data}
-                  <path d={coordToLine(data)} />
-                {/each}
-              </g>
-
-              {#each day ? dataSet : dataNight as points}
-                {#each points as dot}
-                  <circle
-                    class="dot"
-                    cx={projection([dot.lng, dot.lat])[0]}
-                    cy={projection([dot.lng, dot.lat])[1]}
-                    r="5px"
-                    on:mouseenter={(e) => {
-                      // console.log(e);
-                      tooltip = true;
-                    }}
-                    on:mousemove={(e) => {
-                      mousePos.x = e.clientX;
-                      mousePos.y = e.clientY;
-                    }}
-                    on:mouseleave={(e) => {
-                      // console.log(e);
-                      // if (!mousePos.x == e.clientX && !mousePos.y == e.clientY) {
-                      tooltip = false;
-                      // }
-                    }} />
-                {/each}
+                <defs>
+                  <linearGradient id={stationId(data)}>
+                    {#each lineGrad(data) as col}
+                      <stop offset={col.offset} stop-color={col.col} />
+                    {/each}
+                  </linearGradient>
+                </defs>
               {/each}
-            </g></svg>
-        </div>
-      {:catch error}
-        <p style="color: red">{error.message}</p>
-      {/await}
-    </div>
+            </g>
+
+            {#each day ? dataSet : dataNight as points}
+              {#each points as dot}
+                <circle
+                  class="dot"
+                  cx={projection([dot.lng, dot.lat])[0]}
+                  cy={projection([dot.lng, dot.lat])[1]}
+                  r="5px"
+                  on:mouseenter={() => {
+                    renderTooltip(dot);
+                    tooltip = true;
+                  }}
+                  on:mouseleave={() => {
+                    tooltip = false;
+                  }}
+                  on:mousemove={(e) => {
+                    mousePos.x = e.clientX;
+                    mousePos.y = e.clientY;
+                  }} />
+              {/each}
+            {/each}
+          </g>
+        </svg>
+      </div>
+    {:catch error}
+      <p style="color: red">{error.message}</p>
+    {/await}
   </div>
 </div>
