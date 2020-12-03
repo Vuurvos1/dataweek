@@ -1,28 +1,121 @@
 [
   [
     {
+      "Station": "Breda Centraal",
+      "lat": "51.589320",
+      "lng": "4.774470",
+      "vertrek": "09:26",
+      "aankomst": null,
+      "noMasks": 1,
+      "alreadyIn": 45,
+      "in": 20,
+      "uit": 15
+    },
+    {
+      "Station": "Rotterdam Centraal",
+      "lat": "51.922910",
+      "lng": "4.470590",
+      "vertrek": "09:56",
+      "aankomst": "09:58",
+      "noMasks": 1,
+      "alreadyIn": 50,
+      "in": 21,
+      "uit": 27
+    },
+    {
+      "Station": "Schiphol station",
+      "lat": "52.309367",
+      "lng": "4.7600533",
+      "vertrek": "10:22",
+      "aankomst": "10:24",
+      "noMasks": 0,
+      "alreadyIn": 44,
+      "in": 8,
+      "uit": 20
+    },
+    {
+      "Station": "Amsterdam Centraal",
+      "lat": "52.377727",
+      "lng": "4.8991132",
+      "vertrek": null,
+      "aankomst": "10:38",
+      "noMasks": 0,
+      "alreadyIn": 22,
+      "in": 0,
+      "uit": 22
+    }
+  ],
+  [
+    {
+      "Station": "Utrecht Centraal",
+      "lat": "52.0894403",
+      "lng": "5.1077982",
+      "vertrek": "10:12",
+      "aankomst": null,
+      "noMasks": 2,
+      "alreadyIn": 60
+    },
+    {
+      "Station": "Metrostation Station Bijlmer ArenA",
+      "lat": "52.3120458",
+      "lng": "4.9450623",
+      "vertrek": "10:34",
+      "aankomst": "10:32",
+      "noMasks": 4,
+      "alreadyIn": 30
+    },
+    {
+      "Station": "Metrostation Van der Madeweg",
+      "lat": "52.3293872",
+      "lng": "4.9285131",
+      "vertrek": "10:38",
+      "aankomst": "10:40",
+      "noMasks": 6,
+      "alreadyIn": 30
+    },
+    {
+      "Station": "Metrostation Centraal Station",
+      "lat": "52.37929201057076",
+      "lng": "4.90031491386945",
+      "vertrek": null,
+      "aankomst": "10:50",
+      "noMasks": 3,
+      "alreadyIn": 40
+    }
+  ],
+  [
+    {
       "Station": "Leeuwarden centraal",
       "lat": "53.19658504855756",
       "lng": "5.792989767197949",
-      "vertrek": "17:46",
-      "aankomst": null,
-      "alreadyIn": "41"
+      "vertrek": "10:40",
+      "aankomst": "11:42",
+      "noMasks": 0,
+      "alreadyIn": 22,
+      "in": 0,
+      "uit": 0
     },
     {
       "Station": "Zwolle centraal",
       "lat": "52.50570495003403",
       "lng": "6.090658300380598",
-      "vertrek": "18:44",
-      "aankomst": "18:42",
-      "alreadyIn": "35"
+      "vertrek": "11:45",
+      "aankomst": "11:42",
+      "noMasks": 0,
+      "alreadyIn": 27,
+      "in": 15,
+      "uit": 0
     },
     {
       "Station": "Almere centrum centraal",
       "lat": "52.37538532577213",
       "lng": "5.2193645138693565",
-      "vertrek": "19:29",
-      "aankomst": "19:27",
-      "alreadyIn": "44"
+      "vertrek": "12:29",
+      "aankomst": "12:27",
+      "noMasks": 0,
+      "alreadyIn": 31,
+      "in": 0,
+      "uit": 4
     },
     {
       "Station": "Amsterdam centraal",
@@ -30,75 +123,8 @@
       "lng": "4.90031491386945",
       "vertrek": null,
       "aankomst": "12:52",
+      "noMasks": 0,
       "alreadyIn": "44"
-    }
-  ],
-  [
-    {
-      "Station": "Amsterdam centraal",
-      "lat": "52.37929201057076",
-      "lng": "4.90031491386945",
-      "vertrek": "17:08",
-      "aankomst": null,
-      "alreadyIn": "54"
-    },
-    {
-      "Station": "Schiphol station",
-      "lat": "52.309367",
-      "lng": "4.7600533",
-      "vertrek": "17:24",
-      "aankomst": "17:22",
-      "alreadyIn": "77"
-    },
-    {
-      "Station": "Rotterdam Centraal",
-      "lat": "51.922910",
-      "lng": "4.470590",
-      "vertrek": "17:52",
-      "aankomst": "17:50",
-      "alreadyIn": 50
-    },
-    {
-      "Station": "Breda Centraal",
-      "lat": "51.589320",
-      "lng": "4.774470",
-      "vertrek": null,
-      "aankomst": "18:24",
-      "alreadyIn": 45
-    }
-  ],
-  [
-    {
-      "Station": "Metrostation Centraal Station, Amsterdam",
-      "lat": "52.37929201057076",
-      "lng": "4.90031491386945",
-      "vertrek": "17:11",
-      "aankomst": null,
-      "alreadyIn": 40
-    },
-    {
-      "Station": "Metrostation Van der Madeweg, Amsterdam",
-      "lat": "52.3293872",
-      "lng": "4.9285131",
-      "vertrek": "17:22",
-      "aankomst": "17:21",
-      "alreadyIn": 30
-    },
-    {
-      "Station": "Metrostation Station Bijlmer ArenA, Amsterdam",
-      "lat": "52.3120458",
-      "lng": "4.9450623",
-      "vertrek": "17:26",
-      "aankomst": "17:26",
-      "alreadyIn": 30
-    },
-    {
-      "Station": "Utrecht Centraal",
-      "lat": "52.0894403",
-      "lng": "5.1077982",
-      "vertrek": null,
-      "aankomst": "17:48",
-      "alreadyIn": 60
     }
   ]
 ]
