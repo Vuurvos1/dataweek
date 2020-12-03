@@ -133,7 +133,7 @@
   }
 
   .dayNightButton {
-    width: 30%;
+    width: fit-content;
     padding: 0.4em 1em;
     border-radius: 100rem;
     font-size: 1.2rem;
