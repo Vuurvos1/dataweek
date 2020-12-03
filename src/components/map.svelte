@@ -111,30 +111,50 @@
 
 <style>
   .map path {
-    stroke: #eef6fc;
+    stroke: #edeff6;
     stroke-width: 2;
-    fill: #fafafd;
+    fill: #fbfbfb;
   }
   .dot {
     fill: #9d5feb;
     stroke: white;
     stroke-width: 1;
   }
-  div {
+  .mapContainer {
     display: flex;
     justify-content: center;
+
+    margin-bottom: 2rem;
   }
   .lines path {
     stroke: hotpink;
     stroke-width: 2;
     fill: transparent;
   }
+
+  .dayNightButton {
+    margin: 0 auto;
+    width: fit-content;
+
+    padding: 0.4em 1em;
+    border-radius: 100rem;
+    font-size: 1.2rem;
+    background-color: orangered;
+    color: whitesmoke;
+
+    /* stop highlighting text */
+    user-select: none;
+  }
+
+  #dayNight {
+    display: none;
+  }
 </style>
 
 {#await getGeo()}
   <h2>Loading Map</h2>
 {:then data}
-  <div>
+  <div class="mapContainer">
     <svg {width} {height} viewBox={[0, 0, width, height]} on:click={reset}>
       <g class="map">
         {#each data.features as path}
@@ -162,7 +182,10 @@
           {/each}
         {/each}
       </g></svg>
+  </div>
 
+  <div>
+    <label class="dayNightButton" for="dayNight">Andere weergaven</label>
     <input type="checkbox" name="dayNight" id="dayNight" bind:checked={day} />
   </div>
 {:catch error}
