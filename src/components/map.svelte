@@ -171,6 +171,7 @@
   }
 
   function renderTooltip(info) {
+    console.log(info)
     tooltipDot = info;
   }
 </script>
@@ -255,7 +256,7 @@
     position: absolute;
     top: 0;
     left: 0;
-
+    padding: .6rem 2rem 1rem 2rem;
     border-radius: 0 0.4rem 0.4rem 0.4rem;
   }
 
@@ -269,14 +270,41 @@
   .Map svg {
     margin: 2rem 0;
   }
+  h4 {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  .tooltip-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .time {
+    color: #fff;
+    margin-left: auto;
+    font-weight: bold;
+  }
+  
 </style>
 
 {#if tooltip}
   <div
     class="tooltip"
     style={`transform: translate(${mousePos.x}px, ${mousePos.y}px)`}>
+    <div class='tooltip-container'>
+    <h4>{`${tooltipDot.Station}`}</h4>
+    {#if tooltipDot.aankomst == null}
+    <p class="time">{`${tooltipDot.vertrek}`}</p>
+    {:else}
+    <p class="time">{`${tooltipDot.aankomst}`}</p>
+    {/if}
+  </div>
     <p>
       {`Op dit station zaten er ${tooltipDot.alreadyIn} mensen in de trein`}
+    </p>
+    <p>
+      {`Aantal mensen zonder mondkapje: ${tooltipDot.noMasks}`}
     </p>
   </div>
 {/if}
