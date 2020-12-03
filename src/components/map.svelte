@@ -9,6 +9,8 @@
     zoomTransform,
   } from 'd3';
 
+  import Tooltip from './tooltip.svelte';
+
   let projection;
   let geoGenerator;
 
@@ -29,11 +31,18 @@
   const path = geoPath();
 
   async function getGeo() {
-    const url = 'https://cartomap.github.io/nl/wgs84/provincie_2020.geojson';
-    const geoData = await (await fetch(url)).json();
+    let geoData;
+    if (localStorage.getItem('geoData')) {
+      geoData = JSON.parse(localStorage.getItem('geoData'));
+    } else {
+      const url = 'https://cartomap.github.io/nl/wgs84/provincie_2020.geojson';
+      geoData = await (await fetch(url)).json();
+    }
 
     projection = geoMercator().fitSize([width, height], geoData);
     geoGenerator = path.projection(projection);
+
+    localStorage.setItem('geoData', JSON.stringify(geoData));
 
     const dataSetUrl = './dataDay.json';
     dataSet = await (await fetch(dataSetUrl)).json();
@@ -45,7 +54,6 @@
   }
 
   // Zoom functions
-
   const d3zoom = zoom().scaleExtent([1, 8]).on('zoom', zoomed);
 
   const svg = select('svg');
@@ -68,14 +76,9 @@
         zoomIdentity,
         zoomTransform(select('svg').node()).invert([width / 2, height / 2])
       );
-    console.log('reset');
   }
 
   function clicked(event, d) {
-    // selectAll('.dot')
-    //       .attr('r', '2px')
-
-    console.log(event, d);
     const [[x0, y0], [x1, y1]] = path.bounds(d);
     event.stopPropagation();
     select('svg')
@@ -91,7 +94,6 @@
           .translate(-(x0 + x1) / 2, -(y0 + y1) / 2),
         pointer(event, svg.node())
       );
-    console.log('end of code reached');
   }
 
   // needs array
@@ -171,7 +173,6 @@
   }
 
   function renderTooltip(info) {
-    console.log(info)
     tooltipDot = info;
   }
 </script>
@@ -233,6 +234,7 @@
   .test p {
     margin-bottom: 2rem;
   }
+
   .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -254,16 +256,6 @@
     margin: calc((100vh - 48rem) / 2) auto;
   }
 
-  .tooltip {
-    z-index: 10;
-    pointer-events: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: .6rem 2rem 1rem 2rem;
-    border-radius: 0 0.4rem 0.4rem 0.4rem;
-  }
-
   .description {
     grid-area: description;
   }
@@ -274,57 +266,26 @@
   .Map svg {
     margin: 2rem 0;
   }
-  h4 {
-    margin: 0;
-    font-size: 1.2rem;
-  }
-  .tooltip-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .time {
-    color: #fff;
-    margin-left: auto;
-    font-weight: bold;
-  }
-  
 </style>
 
 {#if tooltip}
-  <div
-    class="tooltip"
-    style={`transform: translate(${mousePos.x}px, ${mousePos.y}px)`}>
-    <div class='tooltip-container'>
-    <h4>{`${tooltipDot.Station}`}</h4>
-    {#if tooltipDot.aankomst == null}
-    <p class="time">{`${tooltipDot.vertrek}`}</p>
-    {:else}
-    <p class="time">{`${tooltipDot.aankomst}`}</p>
-    {/if}
-  </div>
-    <p>
-      {`Op dit station zaten er ${tooltipDot.alreadyIn} mensen in de trein`}
-    </p>
-    <p>
-      {`Aantal mensen zonder mondkapje: ${tooltipDot.noMasks}`}
-    </p>
-  </div>
+  <Tooltip {mousePos} {tooltipDot} />
 {/if}
 
 <div class="grid-container">
   <div class="description">
-    <h1>Timetravel</h1>
+    <h1>Timemap</h1>
     <p>
-      Timemap is een overzicht waar je onze interessante verschijnselen op de map kunt zien. Als je meer te weten wil komen over onze inzichten kun je 
+      Timemap is een overzicht waar je onze interessante verschijnselen op de
+      map kunt zien. Als je meer te weten wil komen over onze inzichten kun je
       op de map drukken of met je muis over het gekleurde bolletje gaan.
     </p>
     <div class="test">
       <h2>Get Started</h2>
       <p>
-        Tijdens het vergaderen van data hebben wij een meting gedaan van de ochtend en de avond. U kunt hierdoor het verschil zien tussen dag en nacht door op
-          de onderstaande knop te drukken.
+        Tijdens het vergaderen van data hebben wij een meting gedaan van de
+        ochtend en de avond. U kunt hierdoor het verschil zien tussen dag en
+        nacht door op de onderstaande knop te drukken
       </p>
       <label class="dayNightButton" for="dayNight">Schakel tussen dag & nacht</label>
       <input type="checkbox" name="dayNight" id="dayNight" bind:checked={day} />
@@ -332,7 +293,7 @@
   </div>
   <div class="Map">
     {#await getGeo()}
-      <h2>Loading Map</h2>
+      <h2>De kaart is aan het laden</h2>
     {:then data}
       <div class="mapContainer">
         <svg {width} {height} viewBox={[0, 0, width, height]} on:click={reset}>
