@@ -24,6 +24,11 @@
   let day = false;
   $: document.body.classList.toggle('night', day);
 
+  let tooltip = false;
+  let mousePos = { x: 0, y: 0 };
+
+  let tempCircle;
+
   const height = 700;
   const width = 700;
 
@@ -111,9 +116,9 @@
 
 <style>
   .map path {
-    stroke: #edeff6;
+    stroke: #e6e7ec;
     stroke-width: 2;
-    fill: #fbfbfb;
+    fill: #f5f5f5;
   }
   .dot {
     fill: #9d5feb;
@@ -134,15 +139,19 @@
 
   .dayNightButton {
     width: fit-content;
-    padding: 0.4em 1em;
+    padding: 0.4em 1em 0.6em 1em;
     border-radius: 100rem;
     font-size: 1.2rem;
-    background-color: orangered;
-    color: whitesmoke;
+    background-color: var(--butCol);
+    color: white;
     margin: 0 auto;
+
+    font-weight: 500;
 
     /* stop highlighting text */
     user-select: none;
+
+    cursor: pointer;
   }
 
   #dayNight {
@@ -156,19 +165,7 @@
     transform: translate(-50%, -50%);
     height: 50rem;
     width: 90rem;
-    background-color: white;
     border-radius: 2px;
-  }
-  h1 {
-    margin-top: 5rem;
-    
-  }
-  h1, p, h2 {
-    text-align: center;
-  }
-
-  h2 {
-    margin-top: 5rem;
   }
 
   .test {
@@ -177,69 +174,115 @@
     flex-direction: column;
   }
   .grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  gap: 0px 0px;
-  grid-template-areas:
-    "description description Map Map"
-    "description description Map Map"
-    "description description Map Map";
-}
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+      'description Map'
+      'description Map'
+      'description Map';
 
-.description { grid-area: description; }
-.Map { grid-area: Map; }
+    background-color: var(--bgFrameCol);
+    border-radius: 0.4em;
+  }
+
+  .tooltip {
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .description {
+    grid-area: description;
+  }
+  .Map {
+    grid-area: Map;
+  }
+
+  .Map svg {
+    margin: 2rem 0;
+  }
 </style>
 
-<div class="center">
-
-    <div class="grid-container">
-      <div class="description">
-        <h1>Timetravel</h1>
-        <p>Meerdere weergavens van onze ervaring tijds het reizen. U kunt andere inzichten opdoen door op de onderstaande button te klikken.</p>
-        <div class="test">
-          <h2>Get Started</h2>
-          <label class="dayNightButton" for="dayNight">Schakel tussen dag & nacht</label>
-          <input type="checkbox" name="dayNight" id="dayNight" bind:checked={day} />
-        </div>
-      </div>
-      <div class="Map">
-        {#await getGeo()}
-          <h2>Loading Map</h2>
-        {:then data}
-          <div class="mapContainer">
-          <svg {width} {height} viewBox={[0, 0, width, height]} on:click={reset}>
-          <g class="map">
-      {#each data.features as path}
-          <path d={geoGenerator(path)} on:click={() => clicked(event, path)} />
-        {/each}
-
-        <g class="lines">
-          {#each day ? dataSet : dataNight as data}
-            <path d={coordToLine(data)} />
-          {/each}
-        </g>
-
-        {#each day ? dataSet : dataNight as points}
-          {#each points as dot}
-            <circle
-              class="dot"
-              cx={projection([dot.lng, dot.lat])[0]}
-              cy={projection([dot.lng, dot.lat])[1]}
-              r="5px"
-              on:mouseover={handleMouseOver(`
-          Station: ${dot.Station} 
-          Personen in het voertuig: ${dot.alreadyIn}`)}
-              on:mouseout={handleMouseOut}
-              on:mousemove={mouseMove} />
-          {/each}
-        {/each}
-      </g></svg>
+{#if tooltip}
+  <div
+    class="tooltip"
+    style={`transform: translate(${mousePos.x}px, ${mousePos.y}px)`}>
+    <p>this is some text pikkenbaas</p>
   </div>
+{/if}
 
-{:catch error}
-  <p style="color: red">{error.message}</p>
-{/await}
+<div class="center">
+  <div class="grid-container">
+    <div class="description">
+      <h1>Timetravel</h1>
+      <p>
+        Meerdere weergavens van onze ervaring tijds het reizen. U kunt andere
+        inzichten opdoen door op de onderstaande button te klikken.
+      </p>
+      <div class="test">
+        <h2>Get Started</h2>
+        <label class="dayNightButton" for="dayNight">Schakel tussen dag & nacht</label>
+        <input
+          type="checkbox"
+          name="dayNight"
+          id="dayNight"
+          bind:checked={day} />
       </div>
     </div>
+    <div class="Map">
+      {#await getGeo()}
+        <h2>Loading Map</h2>
+      {:then data}
+        <div class="mapContainer">
+          <svg
+            {width}
+            {height}
+            viewBox={[0, 0, width, height]}
+            on:click={reset}>
+            <g class="map">
+              {#each data.features as path}
+                <path
+                  d={geoGenerator(path)}
+                  on:click={() => clicked(event, path)} />
+              {/each}
+
+              <g class="lines">
+                {#each day ? dataSet : dataNight as data}
+                  <path d={coordToLine(data)} />
+                {/each}
+              </g>
+
+              {#each day ? dataSet : dataNight as points}
+                {#each points as dot}
+                  <circle
+                    class="dot"
+                    cx={projection([dot.lng, dot.lat])[0]}
+                    cy={projection([dot.lng, dot.lat])[1]}
+                    r="5px"
+                    on:mouseenter={(e) => {
+                      // console.log(e);
+                      tooltip = true;
+                    }}
+                    on:mousemove={(e) => {
+                      mousePos.x = e.clientX;
+                      mousePos.y = e.clientY;
+                    }}
+                    on:mouseleave={(e) => {
+                      // console.log(e);
+                      // if (!mousePos.x == e.clientX && !mousePos.y == e.clientY) {
+                      tooltip = false;
+                      // }
+                    }} />
+                {/each}
+              {/each}
+            </g></svg>
+        </div>
+      {:catch error}
+        <p style="color: red">{error.message}</p>
+      {/await}
+    </div>
   </div>
+</div>
