@@ -46,38 +46,38 @@
     }
   ],
   [
-   {
-    "Station": "Utrecht Centraal",
-    "lat": "52.0894403",
-    "lng": "5.1077982",
-    "vertrek": "10:12",
-    "aankomst": null,
-    "alreadyIn": 60
-   },
-   {
-    "Station": "Metrostation Station Bijlmer ArenA, Amsterdam",
-    "lat": "52.3120458",
-    "lng": "4.9450623",
-    "vertrek": "10:34",
-    "aankomst": "10:32",
-    "alreadyIn": 30
-   },
-   {
-    "Station": "Metrostation Van der Madeweg, Amsterdam",
-    "lat": "52.3293872",
-    "lng": "4.9285131",
-    "vertrek": "10:38",
-    "aankomst": "10:40",
-    "alreadyIn": 30
-   },
-   {
+    {
+      "Station": "Utrecht Centraal",
+      "lat": "52.0894403",
+      "lng": "5.1077982",
+      "vertrek": "10:12",
+      "aankomst": null,
+      "alreadyIn": 60
+    },
+    {
+      "Station": "Metrostation Station Bijlmer ArenA, Amsterdam",
+      "lat": "52.3120458",
+      "lng": "4.9450623",
+      "vertrek": "10:34",
+      "aankomst": "10:32",
+      "alreadyIn": 30
+    },
+    {
+      "Station": "Metrostation Van der Madeweg, Amsterdam",
+      "lat": "52.3293872",
+      "lng": "4.9285131",
+      "vertrek": "10:38",
+      "aankomst": "10:40",
+      "alreadyIn": 30
+    },
+    {
       "Station": "Metrostation Centraal Station, Amsterdam",
       "lat": "52.37929201057076",
       "lng": "4.90031491386945",
       "vertrek": null,
       "aankomst": "10:50",
       "alreadyIn": 40
-   }
+    }
   ],
   [
     {
