@@ -229,6 +229,10 @@
     justify-content: center;
     flex-direction: column;
   }
+
+  .test p {
+    margin-bottom: 2rem;
+  }
   .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -313,11 +317,15 @@
   <div class="description">
     <h1>Timetravel</h1>
     <p>
-      Meerdere weergavens van onze ervaring tijds het reizen. U kunt andere
-      inzichten opdoen door op de onderstaande button te klikken.
+      Timemap is een overzicht waar je onze interessante verschijnselen op de map kunt zien. Als je meer te weten wil komen over onze inzichten kun je 
+      op de map drukken of met je muis over het gekleurde bolletje gaan.
     </p>
     <div class="test">
       <h2>Get Started</h2>
+      <p>
+        Tijdens het vergaderen van data hebben wij een meting gedaan van de ochtend en de avond. U kunt hierdoor het verschil zien tussen dag en nacht door op
+          de onderstaande knop te drukken.
+      </p>
       <label class="dayNightButton" for="dayNight">Schakel tussen dag & nacht</label>
       <input type="checkbox" name="dayNight" id="dayNight" bind:checked={day} />
     </div>
