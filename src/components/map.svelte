@@ -24,8 +24,8 @@
   let day = false;
   $: document.body.classList.toggle('night', day);
 
-  const height = 620;
-  const width = 500;
+  const height = 700;
+  const width = 700;
 
   const path = geoPath();
 
@@ -52,7 +52,7 @@
   const svg = select('svg');
 
   svg.call(d3zoom);
-  select('svg').call(d3zoom);
+  select('.mapContainer svg').call(d3zoom);
 
   function zoomed(event) {
     const { transform } = event;
@@ -133,14 +133,13 @@
   }
 
   .dayNightButton {
-    margin: 0 auto;
-    width: fit-content;
-
+    width: 30%;
     padding: 0.4em 1em;
     border-radius: 100rem;
     font-size: 1.2rem;
     background-color: orangered;
     color: whitesmoke;
+    margin: 0 auto;
 
     /* stop highlighting text */
     user-select: none;
@@ -149,15 +148,69 @@
   #dayNight {
     display: none;
   }
+
+  .center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 50rem;
+    width: 90rem;
+    background-color: white;
+    border-radius: 2px;
+  }
+  h1 {
+    margin-top: 5rem;
+    
+  }
+  h1, p, h2 {
+    text-align: center;
+  }
+
+  h2 {
+    margin-top: 5rem;
+  }
+
+  .test {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "description description Map Map"
+    "description description Map Map"
+    "description description Map Map";
+}
+
+.description { grid-area: description; }
+.Map { grid-area: Map; }
 </style>
 
-{#await getGeo()}
-  <h2>Loading Map</h2>
-{:then data}
-  <div class="mapContainer">
-    <svg {width} {height} viewBox={[0, 0, width, height]} on:click={reset}>
-      <g class="map">
-        {#each data.features as path}
+<div class="center">
+
+    <div class="grid-container">
+      <div class="description">
+        <h1>Timetravel</h1>
+        <p>Meerdere weergavens van onze ervaring tijds het reizen. U kunt andere inzichten opdoen door op de onderstaande button te klikken.</p>
+        <div class="test">
+          <h2>Get Started</h2>
+          <label class="dayNightButton" for="dayNight">Schakel tussen dag & nacht</label>
+          <input type="checkbox" name="dayNight" id="dayNight" bind:checked={day} />
+        </div>
+      </div>
+      <div class="Map">
+        {#await getGeo()}
+          <h2>Loading Map</h2>
+        {:then data}
+          <div class="mapContainer">
+          <svg {width} {height} viewBox={[0, 0, width, height]} on:click={reset}>
+          <g class="map">
+      {#each data.features as path}
           <path d={geoGenerator(path)} on:click={() => clicked(event, path)} />
         {/each}
 
@@ -184,10 +237,9 @@
       </g></svg>
   </div>
 
-  <div>
-    <label class="dayNightButton" for="dayNight">Andere weergaven</label>
-    <input type="checkbox" name="dayNight" id="dayNight" bind:checked={day} />
-  </div>
 {:catch error}
   <p style="color: red">{error.message}</p>
 {/await}
+      </div>
+    </div>
+  </div>

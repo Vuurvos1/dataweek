@@ -55,7 +55,6 @@
 </style>
 
 <main>
-  <h1>Time travel</h1>
   <Map />
 </main>
 
