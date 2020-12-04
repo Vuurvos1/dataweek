@@ -222,8 +222,8 @@
     border-radius: 100rem;
     font-size: 1.2rem;
     /* background-color: var(--butCol); */
-    border: var(--butCol) 2px solid;
-    color: var(--black);
+    border: var(--butCol) 3px solid;
+    color: var(--textCol);
     margin: 2rem auto 0 auto;
 
     font-weight: 500;

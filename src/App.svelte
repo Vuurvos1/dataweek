@@ -12,6 +12,8 @@
 
     --purple: #854ce3;
     --purple2: #854ce3;
+    --purple3: #854ce3;
+    
     --purpleOpac: rgba(133, 76, 227, 0.3);
 
     --textCol:var(--black);
@@ -27,7 +29,7 @@
   :global(body.night) {
     --bgCol: #34335a;
     --purple: #854ce3;
-    /* --purple2: #854ce3; */
+    --purple3: #6438aa;
 
     --bgFrameCol: #8885ee;
 
@@ -56,7 +58,7 @@
   :global(h1) {
     font-size: 3rem;
     text-align: left;
-    color: var(--purple);
+    color: var(--purple3);
     max-width: 30rem;
     margin: 2rem auto 4.6rem auto;
   }
