@@ -25,10 +25,25 @@
 
   let tooltipDot = {};
 
-  const height = 700;
-  const width = 700;
+  const height = 650;
+  const width = 600;
 
   const path = geoPath();
+
+  const colStop = [
+    {
+      pos: 4,
+      val: 0,
+    },
+    {
+      pos: 120,
+      val: 35,
+    },
+    {
+      pos: 240,
+      val: 50,
+    },
+  ];
 
   async function getGeo() {
     let geoData;
@@ -190,6 +205,7 @@
   }
   .mapContainer {
     display: flex;
+    flex-direction: column;
     justify-content: center;
 
     margin-bottom: 2rem;
@@ -264,7 +280,37 @@
   }
 
   .Map svg {
-    margin: 2rem 0;
+    margin: 2rem auto 0.2rem auto;
+  }
+
+  .colBar {
+    margin-left: 1rem;
+  }
+
+  .colBar svg {
+    margin: 0;
+  }
+
+  .colBar rect {
+    height: 0.5rem;
+    width: 100%;
+    fill: url(#colGrad);
+  }
+
+  .colBar p {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: left;
+    width: initial;
+    margin: 0 0 0.4rem 0;
+  }
+
+  .colBar line {
+    stroke: currentColor;
+  }
+
+  .colBar text {
+    font-size: 0.6rem;
   }
 </style>
 
@@ -342,6 +388,27 @@
             {/each}
           </g>
         </svg>
+
+        <div class="colBar">
+          <p>Aantal passagiers:</p>
+          <svg width="250" height="32">
+            <rect />
+            {#each colStop as col}
+              <g transform={`translate(${col.pos}, 0)`}>
+                <line y2="12" />
+                <text y="24" text-anchor="middle">{col.val}</text>
+              </g>
+            {/each}
+
+            <defs>
+              <linearGradient id="colGrad">
+                <stop offset="6%" stop-color="#7268D6" />
+                <stop offset="51%" stop-color="#FFB67A" />
+                <stop offset="96%" stop-color="#F74559" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
       </div>
     {:catch error}
       <p style="color: red">{error.message}</p>
