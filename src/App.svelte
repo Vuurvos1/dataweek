@@ -4,14 +4,19 @@
 
 <style>
   :global(body) {
+    --white: #fff
+    --black: #0f0f0f
+
     --bgCol: #8885ee;
     --bgFrameCol: #fff;
 
     --purple: #854ce3;
     --purple2: #854ce3;
+    --purple3: #854ce3;
+    
     --purpleOpac: rgba(133, 76, 227, 0.3);
 
-    --textCol: #0f0f0f;
+    --textCol:var(--black);
 
     --butCol: var(--purple);
 
@@ -24,7 +29,7 @@
   :global(body.night) {
     --bgCol: #34335a;
     --purple: #854ce3;
-    /* --purple2: #854ce3; */
+    --purple3: #6438aa;
 
     --bgFrameCol: #8885ee;
 
@@ -38,12 +43,35 @@
   }
   :global(h1, h2, p) {
     color: var(--textCol);
-    text-align: center;
+    max-width: 30rem;
+    text-align: left;
+    
+    margin-bottom: 1em;
+  }
+
+  :global(h2) {
+    font-size: 1.6rem;
+    width: 30rem;
+    margin: 0 auto 1.4rem auto;
+  }
+
+  :global(h1) {
+    font-size: 3rem;
+    text-align: left;
+    color: var(--purple3);
+    max-width: 30rem;
+    margin: 2rem auto 4.6rem auto;
   }
 
   :global(p) {
-    max-width: 30em;
+    max-width: 30rem;
     margin: 0 auto;
+
+    font-size: 1.2rem;
+
+    margin-bottom: 1.2em;
+
+    font-weight: 400;
   }
 
   .circleTopLeft,

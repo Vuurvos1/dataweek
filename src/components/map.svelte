@@ -221,9 +221,10 @@
     padding: 0.4em 1em 0.6em 1em;
     border-radius: 100rem;
     font-size: 1.2rem;
-    background-color: var(--butCol);
-    color: white;
-    margin: 0 auto;
+    /* background-color: var(--butCol); */
+    border: var(--butCol) 3px solid;
+    color: var(--textCol);
+    margin: 2rem auto 0 auto;
 
     font-weight: 500;
 
@@ -320,18 +321,17 @@
 
 <div class="grid-container">
   <div class="description">
-    <h1>Timemap</h1>
+    <h1>timemap</h1>
     <p>
       Timemap is een overzicht waar je onze interessante verschijnselen op de
       map kunt zien. Als je meer te weten wil komen over onze inzichten kun je
       op de map drukken of met je muis over het gekleurde bolletje gaan.
     </p>
     <div class="test">
-      <h2>Get Started</h2>
+      <h2>Introductie</h2>
       <p>
-        Tijdens het vergaderen van data hebben wij een meting gedaan van de
-        ochtend en de avond. U kunt hierdoor het verschil zien tussen dag en
-        nacht door op de onderstaande knop te drukken
+        Je kunt in de routes onze data bekijken en het verschil zien van onze
+        inzichten over de doelgroep. Switch van weergave!
       </p>
       <label class="dayNightButton" for="dayNight">Schakel tussen dag & nacht</label>
       <input type="checkbox" name="dayNight" id="dayNight" bind:checked={day} />
