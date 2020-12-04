@@ -6,7 +6,7 @@
       "lng": "4.774470",
       "vertrek": "09:26",
       "aankomst": null,
-      "noMasks": 1,
+      "noMasks": 6,
       "alreadyIn": 45,
       "in": 20,
       "uit": 15
@@ -17,7 +17,7 @@
       "lng": "4.470590",
       "vertrek": "09:56",
       "aankomst": "09:58",
-      "noMasks": 1,
+      "noMasks": 4,
       "alreadyIn": 50,
       "in": 21,
       "uit": 27
@@ -28,7 +28,7 @@
       "lng": "4.7600533",
       "vertrek": "10:22",
       "aankomst": "10:24",
-      "noMasks": 0,
+      "noMasks": 2,
       "alreadyIn": 44,
       "in": 8,
       "uit": 20
@@ -39,7 +39,7 @@
       "lng": "4.8991132",
       "vertrek": null,
       "aankomst": "10:38",
-      "noMasks": 0,
+      "noMasks": 7,
       "alreadyIn": 22,
       "in": 0,
       "uit": 22
@@ -52,7 +52,7 @@
       "lng": "5.1077982",
       "vertrek": "10:12",
       "aankomst": null,
-      "noMasks": 2,
+      "noMasks": 4,
       "alreadyIn": 60
     },
     {
@@ -61,7 +61,7 @@
       "lng": "4.9450623",
       "vertrek": "10:34",
       "aankomst": "10:32",
-      "noMasks": 4,
+      "noMasks": 8,
       "alreadyIn": 30
     },
     {
@@ -79,7 +79,7 @@
       "lng": "4.90031491386945",
       "vertrek": null,
       "aankomst": "10:50",
-      "noMasks": 3,
+      "noMasks": 4,
       "alreadyIn": 40
     }
   ],
@@ -90,7 +90,7 @@
       "lng": "5.792989767197949",
       "vertrek": "10:40",
       "aankomst": "11:42",
-      "noMasks": 0,
+      "noMasks": 4,
       "alreadyIn": 22,
       "in": 0,
       "uit": 0
@@ -101,7 +101,7 @@
       "lng": "6.090658300380598",
       "vertrek": "11:45",
       "aankomst": "11:42",
-      "noMasks": 0,
+      "noMasks": 1,
       "alreadyIn": 27,
       "in": 15,
       "uit": 0
@@ -112,7 +112,7 @@
       "lng": "5.2193645138693565",
       "vertrek": "12:29",
       "aankomst": "12:27",
-      "noMasks": 0,
+      "noMasks": 5,
       "alreadyIn": 31,
       "in": 0,
       "uit": 4
@@ -123,7 +123,7 @@
       "lng": "4.90031491386945",
       "vertrek": null,
       "aankomst": "12:52",
-      "noMasks": 0,
+      "noMasks": 7,
       "alreadyIn": "44"
     }
   ]
