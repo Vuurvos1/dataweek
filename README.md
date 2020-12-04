@@ -15,7 +15,7 @@ Data vizualization for dataweek
 
 ### ☁ See it live
 
-The site is also hosted on Surge, check it out [not live yet](#)
+The site is also hosted on Surge, check it out at [dataweek-timemap.surge.sh](https://dataweek-timemap.surge.sh/)
 
 ### 🛠 Build with
 
