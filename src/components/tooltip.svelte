@@ -17,6 +17,8 @@
     left: 0;
     padding: 0.6rem 2rem 1rem 2rem;
     border-radius: 0 0.4rem 0.4rem 0.4rem;
+
+    width: 20rem;
   }
 
   .tooltip-container {
@@ -24,6 +26,15 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
+    margin-bottom: 0.4rem;
+  }
+
+  .tooltip p {
+    width: initial;
+    text-align: left;
+
+    color: #fff;
   }
 
   .time {
