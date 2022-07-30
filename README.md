@@ -44,4 +44,10 @@ By default, the project will be hosted on [localhost:5000](http://localhost:5000
 
 ## 🗺️ License
 
-Author: [Vuurvos1](https://github.com/Vuurvos1), license by [MIT](https://github.com/Vuurvos1/dataweek/blob/main/LICENSE)
+Authors: 
+
+[Vuurvos1](https://github.com/Vuurvos1),
+
+[Chubby Racoon](https://github.com/RowinRuizendaal), 
+
+license by [MIT](https://github.com/Vuurvos1/dataweek/blob/main/LICENSE)
